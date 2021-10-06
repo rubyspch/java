@@ -10,7 +10,7 @@ public class ElectionResults {
     }
 
     public static void main(String[] args) {
-        Chapter2 go = new Chapter2();
+        ElectionResults go = new ElectionResults();
         go.electionResults();
 
     }
