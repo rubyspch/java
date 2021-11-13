@@ -9,7 +9,7 @@ public class BingoCard {
     While this is not computationally efficient, it is good programming
     practice to hide data structures (information hiding).
    */
-  private int[][]     numbers;
+  private int[][] numbers;
   private boolean[][] markedOff;
 
   private int numberOfRows;
@@ -38,10 +38,11 @@ public class BingoCard {
     /* TODO
           change the return from 0 to the appropriate return
      */
-    return 0;
+    return this.numberOfRows;
   }
 
   public void setNumberOfRows(int numberOfRows) {
+    this.numberOfRows = numberOfRows;
 
   }
 
@@ -49,13 +50,14 @@ public class BingoCard {
     /* TODO
           change the return from 0 to the appropriate return
      */
-    return 0;
+    return this.numberOfColumns;
   }
 
   public void setNumberOfColumns(int numberOfColumns) {
     /* TODO
           implement code here
      */
+    this.numberOfColumns = numberOfColumns;
   }
 
   public String getCardNumbers() {
@@ -71,10 +73,25 @@ public class BingoCard {
           3  4
           5  6
      */
+    for(int i = 0; i < numbers.length;++i){
+      for(int x = 0; x<numbers[i].length;++x){
+        if(numbers[i][x]<10){
+          if(x == ( numbers[i].length - 1))
+            sb.append(" ").append(numbers[i][x]).append("%n");
+          else
+            sb.append(" ").append(numbers[i][x]).append(Defaults.getNumberSeparator());
+        } else{
+          if(x == ( numbers[i].length - 1))
+            sb.append(numbers[i][x]).append("%n");
+          else
+            sb.append(numbers[i][x]).append(Defaults.getNumberSeparator());
+        }
+      }
+    }
     /* TODO
           return the grid as a string
      */
-    return null;
+    return sb.toString();
   }
 
   public void setCardNumbers(String[] numbersAsStrings) {
@@ -84,10 +101,18 @@ public class BingoCard {
      */
     int[] numbersList =
         Arrays.stream(numbersAsStrings).mapToInt(Integer::parseInt).toArray();
+    int index = 0;
 
     /* TODO
           the goal of this method is to get the numbers entered into the [][] numbers format
      */
+    for(int i = 0; i < numbers.length;++i){
+        for(int x = 0; x<numbers[i].length;++x){
+          numbers[i][x] = numbersList[index];
+          ++index;
+        }
+    }
+
   }
 
   public void markNumber(int number) {
@@ -95,7 +120,21 @@ public class BingoCard {
           make use of the [][] markedOff to mark off numbers from [][] numbers as they match
           if not matching an appropriate message must be printed, verify against expected output files
      */
+    boolean check = false;
 
+    for(int i = 0; i < getNumberOfRows();++i){
+      for(int x=0; x< getNumberOfColumns(); ++x){
+         if(numbers[i][x] == number) {
+           markedOff[i][x] = true;
+           check = true;
+         }
+      }
+    }
+    if (check){
+      System.out.printf("Marked off %d%n", number);
+    } else{
+      System.out.printf("Number %d not on this card%n", number);
+    }
   }
 
   public boolean isWinner() {
@@ -103,10 +142,21 @@ public class BingoCard {
           check if there is a winner or not
           all elements of [][] markedOff should be marked off to have a winner (full house)
      */
-    /**
-     * Search each card obj's markedOff array for any false values
+    boolean check = true;
+    for(int i = 0; i < this.getNumberOfRows();++i){
+      for(int x = 0; x < this.getNumberOfColumns();++x){
+        if (!markedOff[i][x]) {
+          check = false;
+          break;
+        }
+      }
+    }
+    /*
+     * Search each card object is markedOff array for any false values
+     * checks for false values, if it finds one check equals false. so if there is no winner return false
      */
+
     //change return statement accordingly (either true or false)
-    return false;
+    return check;
   }
 }
