@@ -48,18 +48,23 @@ public class LocationMap implements Map<Integer, Location> {
             FileReader readLocFile = new FileReader(LOCATIONS_FILE_NAME);
             Scanner sc = new Scanner(readLocFile);
 
+            consoleLoggerObj.log("Available locations:%n");
+            fileLoggerObj.log("Available locations:\n");
+
             while(sc.hasNextLine()){
                 fileContent = sc.nextLine();
 
                 //extract parts
-                splitFileContent = fileContent.split(",");
-                //fileContent = fileContent.replace(",", ": "); (this is neater I think? Maybe try it?)
-                int locationNumber = Integer.parseInt(splitFileContent[0]);
+                fileContent = fileContent.replaceFirst(",", ": "); //(this is neater I think? Maybe try it?)
+
 
                 //print information
-                fileContent = locationNumber + ": " + splitFileContent[1];
+                //fileContent = locationNumber + ": " + splitFileContent[1];
                 consoleLoggerObj.log(fileContent + "%n");
-                fileLoggerObj.log(fileContent + "%n");
+                fileLoggerObj.log(fileContent + "\n");
+
+                splitFileContent = fileContent.split(": ");
+                int locationNumber = Integer.parseInt(splitFileContent[0]);
 
                 //store in Location object and in Locations hashmap
                 Location currentLoc = new Location(locationNumber, splitFileContent[1], null);
@@ -82,13 +87,17 @@ public class LocationMap implements Map<Integer, Location> {
         try { //what resource does it need?
             FileReader readDirFile = new FileReader(DIRECTIONS_FILE_NAME);
             Scanner sc2 = new Scanner(readDirFile);
+
             //read each line and extract location, direction and destination
+            fileLoggerObj.log("Available directions:\n");
+            consoleLoggerObj.log("Available directions:%n");
+
             while(sc2.hasNextLine()) {
                 fileContent = sc2.nextLine();
                 fileContent = fileContent.replace(",",": ");
                 //print all locations,directions and destinations using filelogger and consolelogger
                 consoleLoggerObj.log(fileContent + "%n");
-                fileLoggerObj.log(fileContent + "%n");
+                fileLoggerObj.log(fileContent + "\n");
                 //store the exits for each in locations using Location.addExits()
                 splitFileContent = fileContent.split(": ");
                 currentLocation = Integer.parseInt(splitFileContent[0]);
