@@ -14,6 +14,7 @@ public class LocationMap implements Map<Integer, Location> {
     static HashMap<Integer, Location> locationsHashMap = new HashMap<>();
 
     static {
+
         /* TODO
          * create a FileLogger object
          */
@@ -22,9 +23,7 @@ public class LocationMap implements Map<Integer, Location> {
         /* TODO
          * create a ConsoleLogger object
          */
-
         ConsoleLogger consoleLoggerObj = new ConsoleLogger();
-
 
         /* TODO
          * Read from LOCATIONS_FILE_NAME so that a user can navigate from one location to another
@@ -40,13 +39,10 @@ public class LocationMap implements Map<Integer, Location> {
         int currentDestination;
         String currentDirection;
 
-        try { //what resource does it need? The scanner and the file reader?
+        try(Scanner sc = new Scanner(new FileReader(LOCATIONS_FILE_NAME));) {
             //read each line and extract location int and description
             //store the int and description in a Location object with temporary blank exits
             //print all locations using filelogger and consolelogger to console output
-
-            FileReader readLocFile = new FileReader(LOCATIONS_FILE_NAME);
-            Scanner sc = new Scanner(readLocFile);
 
             consoleLoggerObj.log("Available locations:%n");
             fileLoggerObj.log("Available locations:\n");
@@ -57,9 +53,7 @@ public class LocationMap implements Map<Integer, Location> {
                 //extract parts
                 fileContent = fileContent.replaceFirst(",", ": "); //(this is neater I think? Maybe try it?)
 
-
                 //print information
-                //fileContent = locationNumber + ": " + splitFileContent[1];
                 consoleLoggerObj.log(fileContent + "%n");
                 fileLoggerObj.log(fileContent + "\n");
 
@@ -72,7 +66,7 @@ public class LocationMap implements Map<Integer, Location> {
 
             }
         } catch (FileNotFoundException e) {
-            e.printStackTrace();
+            System.out.printf(e +"%n");;
         }
 
         /*TODO
@@ -84,35 +78,36 @@ public class LocationMap implements Map<Integer, Location> {
          * add the exits for each location
          */
         //read directions file using try catch
-        try { //what resource does it need?
-            FileReader readDirFile = new FileReader(DIRECTIONS_FILE_NAME);
-            Scanner sc2 = new Scanner(readDirFile);
+        try (Scanner sc2 = new Scanner(new FileReader(DIRECTIONS_FILE_NAME));){
 
             //read each line and extract location, direction and destination
             fileLoggerObj.log("Available directions:\n");
             consoleLoggerObj.log("Available directions:%n");
 
             while(sc2.hasNextLine()) {
+
                 fileContent = sc2.nextLine();
                 fileContent = fileContent.replace(",",": ");
+
                 //print all locations,directions and destinations using filelogger and consolelogger
                 consoleLoggerObj.log(fileContent + "%n");
                 fileLoggerObj.log(fileContent + "\n");
+
                 //store the exits for each in locations using Location.addExits()
                 splitFileContent = fileContent.split(": ");
                 currentLocation = Integer.parseInt(splitFileContent[0]);
                 currentDestination = Integer.parseInt(splitFileContent[2]);
                 currentDirection = splitFileContent[1];
+
                 //adds the destination and direction to the exits list. Think this allows you to change the old object using a reference to it.
                 if (locationsHashMap.containsKey(currentLocation)){
                     Location currentObject = locationsHashMap.get(currentLocation);
                     currentObject.addExit(currentDirection,currentDestination);
                 }
 
-
             }
         } catch (FileNotFoundException e) {
-            e.printStackTrace();
+            System.out.printf(e +"%n");
         }
     }
 
@@ -166,6 +161,7 @@ public class LocationMap implements Map<Integer, Location> {
     @Override
     public void putAll(Map<? extends Integer, ? extends Location> m) {
         //TODO
+        locationsHashMap.putAll(m);
     }
 
     @Override
@@ -178,18 +174,18 @@ public class LocationMap implements Map<Integer, Location> {
     @Override
     public Set<Integer> keySet() {
         //TODO
-        return null; //return all the keys?
+        return locationsHashMap.keySet(); //return all the keys?
     }
 
     @Override
     public Collection<Location> values() {
         //TODO
-        return null; //return all the values?
+        return locationsHashMap.values(); //return all the values?
     }
 
     @Override
     public Set<Entry<Integer, Location>> entrySet() {
         //TODO
-        return null;
+        return locationsHashMap.entrySet();
     }
 }
