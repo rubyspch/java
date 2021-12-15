@@ -6,22 +6,17 @@ public class FileLogger implements Logger {
     private static final String FILE_LOGGER_NAME = "StudentFileOutput.txt";
 
     static {
-
         /* TODO
          * create a new File object for FILE_LOGGER_NAME
          * if the file already exists, delete it first
          * use try/catch block
          */
-        File fileObj = new File(FILE_LOGGER_NAME);
-        if (fileObj.exists())
+        try {
+            File fileObj = new File(FILE_LOGGER_NAME);
             fileObj.delete();
-//        else {
-//            try {
-//                fileObj.createNewFile();
-//            } catch (IOException e) {
-//                e.printStackTrace();
-//            }
-//        }
+        } catch(Exception e){
+            e.printStackTrace();
+        }
     }
 
     @Override
@@ -37,6 +32,5 @@ public class FileLogger implements Logger {
         } catch (IOException e) {
             e.printStackTrace(); //not sure this is the correct catch?
         }
-
     }
 }
