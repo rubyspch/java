@@ -1,5 +1,5 @@
-import java.io.*;
 import java.util.*;
+import java.io.*;
 
 //class that behaves like a map
 public class LocationMap implements Map<Integer, Location> {
@@ -39,34 +39,36 @@ public class LocationMap implements Map<Integer, Location> {
         int currentDestination;
         String currentDirection;
 
-        try(Scanner sc = new Scanner(new FileReader(LOCATIONS_FILE_NAME));) {
+        try (Scanner sc = new Scanner(new FileReader(LOCATIONS_FILE_NAME))) {
             //read each line and extract location int and description
             //store the int and description in a Location object with temporary blank exits
-            //print all locations using filelogger and consolelogger to console output
+            //print all locations using file logger and console logger to console output
 
             consoleLoggerObj.log("Available locations:%n");
             fileLoggerObj.log("Available locations:\n");
 
-            while(sc.hasNextLine()){
+            while (sc.hasNextLine()) {
                 fileContent = sc.nextLine();
 
                 //extract parts
-                fileContent = fileContent.replaceFirst(",", ": "); //(this is neater I think? Maybe try it?)
+                fileContent = fileContent.replaceFirst(",", ": ");
 
                 //print information
                 consoleLoggerObj.log(fileContent + "%n");
                 fileLoggerObj.log(fileContent + "\n");
 
+                //prepare to create Location
                 splitFileContent = fileContent.split(": ");
                 int locationNumber = Integer.parseInt(splitFileContent[0]);
 
                 //store in Location object and in Locations hashmap
                 Location currentLoc = new Location(locationNumber, splitFileContent[1], null);
-                locationsHashMap.put(locationNumber,currentLoc);
+                locationsHashMap.put(locationNumber, currentLoc);
 
             }
         } catch (FileNotFoundException e) {
-            System.out.printf(e +"%n");;
+            fileLoggerObj.log(e + "\n");
+            consoleLoggerObj.log(e + "\n");
         }
 
         /*TODO
@@ -78,39 +80,39 @@ public class LocationMap implements Map<Integer, Location> {
          * add the exits for each location
          */
         //read directions file using try catch
-        try (Scanner sc2 = new Scanner(new FileReader(DIRECTIONS_FILE_NAME));){
+        try (Scanner sc2 = new Scanner(new FileReader(DIRECTIONS_FILE_NAME))) {
 
             //read each line and extract location, direction and destination
             fileLoggerObj.log("Available directions:\n");
             consoleLoggerObj.log("Available directions:%n");
 
-            while(sc2.hasNextLine()) {
-
+            while (sc2.hasNextLine()) {
+                //read and format line
                 fileContent = sc2.nextLine();
-                fileContent = fileContent.replace(",",": ");
+                fileContent = fileContent.replace(",", ": ");
 
-                //print all locations,directions and destinations using filelogger and consolelogger
+                //print all locations,directions and destinations using file logger and console logger
                 consoleLoggerObj.log(fileContent + "%n");
                 fileLoggerObj.log(fileContent + "\n");
 
-                //store the exits for each in locations using Location.addExits()
+                //prepare variables to add exits to Locations
                 splitFileContent = fileContent.split(": ");
                 currentLocation = Integer.parseInt(splitFileContent[0]);
-                currentDestination = Integer.parseInt(splitFileContent[2]);
                 currentDirection = splitFileContent[1];
+                currentDestination = Integer.parseInt(splitFileContent[2]);
 
                 //adds the destination and direction to the exits list. Think this allows you to change the old object using a reference to it.
-                if (locationsHashMap.containsKey(currentLocation)){
+                if (locationsHashMap.containsKey(currentLocation)) {
                     Location currentObject = locationsHashMap.get(currentLocation);
-                    currentObject.addExit(currentDirection,currentDestination);
+                    currentObject.addExit(currentDirection, currentDestination);
                 }
 
             }
         } catch (FileNotFoundException e) {
-            System.out.printf(e +"%n");
+            fileLoggerObj.log(e + "\n");
+            consoleLoggerObj.log(e + "\n");
         }
     }
-
 
     /*TODO
      * implement all methods for Map
@@ -149,7 +151,7 @@ public class LocationMap implements Map<Integer, Location> {
     @Override
     public Location put(Integer key, Location value) {
         //TODO
-        return locationsHashMap.put(key,value);
+        return locationsHashMap.put(key, value);
     }
 
     @Override
@@ -167,20 +169,19 @@ public class LocationMap implements Map<Integer, Location> {
     @Override
     public void clear() {
         //TODO
-        // clear the locationsHashMap?
         locationsHashMap.clear();
     }
 
     @Override
     public Set<Integer> keySet() {
         //TODO
-        return locationsHashMap.keySet(); //return all the keys?
+        return locationsHashMap.keySet();
     }
 
     @Override
     public Collection<Location> values() {
         //TODO
-        return locationsHashMap.values(); //return all the values?
+        return locationsHashMap.values();
     }
 
     @Override
