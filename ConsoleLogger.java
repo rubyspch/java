@@ -1,9 +1,9 @@
 public class ConsoleLogger implements Logger {
     @Override
     public void log(String message) {
-        /** TODO
+        /* TODO
          *print message to console
-         */;
+         */
         System.out.printf(message);
     }
 }
