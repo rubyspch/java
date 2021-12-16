@@ -14,8 +14,8 @@ public class FileLogger implements Logger {
         try {
             File fileObj = new File(FILE_LOGGER_NAME);
             fileObj.delete();
-        } catch(Exception e){
-            e.printStackTrace();
+        } catch (Exception e) {
+            System.out.printf(e + "%n");
         }
     }
 
@@ -27,10 +27,10 @@ public class FileLogger implements Logger {
           check the ExpectedOutput files
           use try-with-resources/catch block
          */
-        try (FileWriter writer = new FileWriter(FILE_LOGGER_NAME, true)){
+        try (FileWriter writer = new FileWriter(FILE_LOGGER_NAME, true)) {
             writer.write(message);
         } catch (IOException e) {
-            e.printStackTrace(); //not sure this is the correct catch?
+            System.out.printf(e + "%n");
         }
     }
 }
