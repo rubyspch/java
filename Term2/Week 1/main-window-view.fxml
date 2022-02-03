@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.ListView?>
+<?import java.lang.String?>
+<?import javafx.scene.control.ChoiceBox?>
+<?import javafx.scene.layout.VBox?>
+<GridPane alignment="CENTER" xmlns:fx="http://javafx.com/fxml"
+          hgap="20" vgap="20"
+          fx:controller="fsd.week1.demolecture.Controller">
+
+    <Label text="Please enter your name" GridPane.rowIndex="0" GridPane.columnIndex="0"/>
+    <Label text="Please enter your StudID" GridPane.rowIndex="0" GridPane.columnIndex="1"/>
+    <TextField fx:id="name" GridPane.rowIndex="1" GridPane.columnIndex="0"/>
+    <TextField fx:id="id" GridPane.rowIndex="1" GridPane.columnIndex="1"/>
+    <Button fx:id="submit" text="Submit information" GridPane.rowIndex="2" GridPane.columnIndex="0"
+            onAction="#display"/>
+    <Label fx:id="email" GridPane.rowIndex="3" GridPane.columnIndex="0"/>
+
+    <Label text="Check one or more of the following modules" GridPane.rowIndex="4" GridPane.columnIndex="0"/>
+    <CheckBox fx:id="oop" text="Object-oriented programming" GridPane.rowIndex="5" GridPane.columnIndex="0"
+              onAction="#isChecked"/>
+    <CheckBox fx:id="alg" text="Data structures and algorithms" GridPane.rowIndex="5" GridPane.columnIndex="1"
+              onAction="#isChecked"/>
+
+    <VBox GridPane.rowIndex="6" GridPane.columnIndex="0">
+        <CheckBox fx:id="item1" text="Item 1" onAction="#clickItem"/>
+        <CheckBox fx:id="item2" text="Item 2" onAction="#clickItem"/>
+    </VBox>
+
+    <ListView fx:id="myListView" GridPane.rowIndex="7" GridPane.columnIndex="0"/>
+    <Label fx:id="whichDept" GridPane.rowIndex="7" GridPane.columnIndex="1"/>
+
+</GridPane>
