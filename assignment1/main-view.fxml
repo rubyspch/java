@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.VBox?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.ChoiceBox?>
+<!--include a BorderPane here-->
+<BorderPane fx:controller="fsd.assignment.assignment1.Controller"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:id="mainWindow">
+    <!--include a top section-->
+    <top>
+        <!--include a GridPane<> with a vertical and horizontal gap of 20-->
+        <GridPane vgap="20" hgap="20" > <!--these correspond to the variables in the Controller-->
+            <!--include the labels, textfields and choicebox elements here-->
+            <!--include the Button<> with the onAction="addStudentData", no fx:id is required-->
+            <!--the last element is the <Label> you may not notice this on the image-->
+            <!--label and text field for studentID-->
+            <Label text="StudentID"/>
+            <TextField fx:id="studId"/>
+            <!--label and text field for year of study-->
+            <Label text="Year Of Study"/>
+            <TextField fx:id="yearStudy"/>
+            <!--label and choice box for mod 1-->
+            <Label text="Module Option 1"/>
+            <ChoiceBox fx:id="mod1Choice"/>
+            <!--label and choice box for mod 2-->
+            <Label text="Module Option 2"/>
+            <ChoiceBox fx:id="mod2Choice"/>
+            <!--label and choice box for mod 3-->
+            <Label text="Module Option 3"/>
+            <ChoiceBox fx:id="mod3Choice"/>
+            <!--button to open new window to add a new student's details-->
+            <Button text="Add..." />
+            <!--label for error message not always displayed-->
+
+        </GridPane>
+    </top>
+
+    <left>
+        <VBox >
+            <Label>
+
+            </Label>
+            <ListView fx:id="studentListView" />
+            <Label>
+
+            </Label>
+        </VBox>
+    </left>
+    <!--This section is to show a student modules chosen when the studId is clicked-->
+    <bottom>
+        <VBox>
+            <GridPane hgap="20">
+                <!--include the Labels as well as the fx:id's, see Controller class as well as image-->
+                <!--Labels and ids for year of study, mod1, mod2, mod3-->
+                <Label GridPane.columnIndex="0" GridPane.rowIndex="0" text="Year of Study" fx:id="yearStudyView"/>
+                <Label GridPane.columnIndex="1" GridPane.rowIndex="0" text="Module Option 1" fx:id="mod1View"/>
+                <Label GridPane.columnIndex="2" GridPane.rowIndex="0" text="Module Option 2" fx:id="mod2View"/>
+                <Label GridPane.columnIndex="3" GridPane.rowIndex="0" text="Module Option 3" fx:id="mod3View"/>
+            </GridPane>
+        </VBox>
+    </bottom>
+</BorderPane>
