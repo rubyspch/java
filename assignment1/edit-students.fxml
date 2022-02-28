@@ -12,7 +12,10 @@
             <Label fx:id="mod2Edit" text="Module Option 2" GridPane.rowIndex="0" GridPane.columnIndex="2"/>
             <Label fx:id="mod3Edit" text="Module Option 3" GridPane.rowIndex="0" GridPane.columnIndex="3"/>
             <!--make use of the EditStudentController to complete the rest of the fxml-->
-            <ChoiceBox/>
+            <ChoiceBox fx:id="mod1ChoiceEdit" GridPane.columnIndex="1" GridPane.rowIndex="2"/>
+            <ChoiceBox fx:id="mod2ChoiceEdit" GridPane.columnIndex="2" GridPane.rowIndex="2"/>
+            <ChoiceBox fx:id="mod3ChoiceEdit" GridPane.columnIndex="3" GridPane.rowIndex="2"/>
+
         </GridPane>
     </content>
 </DialogPane>

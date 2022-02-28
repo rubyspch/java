@@ -27,24 +27,24 @@
             <!--include the Button<> with the onAction="addStudentData", no fx:id is required-->
             <!--the last element is the <Label> you may not notice this on the image-->
             <!--label and text field for studentID-->
-            <Label text="StudentID"/>
-            <TextField fx:id="studId"/>
+            <Label text="StudentID" GridPane.columnIndex="0" GridPane.rowIndex="0"/>
+            <TextField fx:id="studId" GridPane.columnIndex="1" GridPane.rowIndex="0"/>
             <!--label and text field for year of study-->
-            <Label text="Year Of Study"/>
-            <TextField fx:id="yearStudy"/>
+            <Label text="Year Of Study" GridPane.columnIndex="0" GridPane.rowIndex="1"/>
+            <TextField fx:id="yearStudy" GridPane.columnIndex="1" GridPane.rowIndex="1"/>
             <!--label and choice box for mod 1-->
-            <Label text="Module Option 1"/>
-            <ChoiceBox fx:id="mod1Choice"/>
+            <Label text="Module Option 1" GridPane.columnIndex="3" GridPane.rowIndex="0"/>
+            <ChoiceBox fx:id="mod1Choice" GridPane.columnIndex="4" GridPane.rowIndex="0"/>
             <!--label and choice box for mod 2-->
-            <Label text="Module Option 2"/>
-            <ChoiceBox fx:id="mod2Choice"/>
+            <Label text="Module Option 2" GridPane.columnIndex="3" GridPane.rowIndex="1"/>
+            <ChoiceBox fx:id="mod2Choice" GridPane.columnIndex="4" GridPane.rowIndex="1"/>
             <!--label and choice box for mod 3-->
-            <Label text="Module Option 3"/>
-            <ChoiceBox fx:id="mod3Choice"/>
+            <Label text="Module Option 3" GridPane.columnIndex="3" GridPane.rowIndex="2"/>
+            <ChoiceBox fx:id="mod3Choice" GridPane.columnIndex="4" GridPane.rowIndex="2"/>
             <!--button to open new window to add a new student's details-->
-            <Button text="Add..." />
+            <Button text="Add..." onAction="#addStudentData" GridPane.columnIndex="0" GridPane.rowIndex="5"/>
             <!--label for error message not always displayed-->
-
+            <Label fx:id="validateStudent" GridPane.columnIndex="0" GridPane.rowIndex="6"/>
         </GridPane>
     </top>
 
