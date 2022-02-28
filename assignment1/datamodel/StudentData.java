@@ -9,6 +9,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.time.format.DateTimeFormatter;
 import java.util.Iterator;
 
 public class StudentData {
@@ -57,6 +58,7 @@ public class StudentData {
                 /* TODO: add the studentDataItem to the students array
                  */
                 students.add(studDataItem);
+                System.out.print("Data should be loaded StudentData.java :63");
             }
         } finally {
             if (br != null) {
