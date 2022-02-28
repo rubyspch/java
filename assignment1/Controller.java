@@ -95,10 +95,10 @@ public class Controller {
                          should ensure that the other fields related to the selected item appear at the bottom of the window
                 */
                 Student clickedStudent = studentListView.getSelectionModel().getSelectedItem();
-                yearStudyView.setText(clickedStudent.getYearOfStudy());
-                mod1View.setText(clickedStudent.getModule1());
-                mod2View.setText(clickedStudent.getModule2());
-                mod3View.setText(clickedStudent.getModule3());
+                yearStudyView.setText("Year of Study\n" + clickedStudent.getYearOfStudy());
+                mod1View.setText("Module Option 1\n" + clickedStudent.getModule1());
+                mod2View.setText("Module Option 2\n" + clickedStudent.getModule2());
+                mod3View.setText("Module Option 3\n" + clickedStudent.getModule3());
                 //^only problem might be if the set text removes the label above- check when you can run it
             }
         });
@@ -119,41 +119,45 @@ public class Controller {
         //deleting a student
         /* TODO: create a new listContextMenu -> defined above in the variables
         */
-        listContextMenu = null;
+        listContextMenu = new ContextMenu();
         /* TODO: create a MenuItem object so that when the user right-clicks a studId
                  the word Delete? appears
          */
-        MenuItem deleteStudent = null;
+        MenuItem deleteStudent = new MenuItem("Delete?");
 
         deleteStudent.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
                 /* TODO: get the item to be deleted and call the deleteStudent()
                  */
+                Student selectedStudent = studentListView.getSelectionModel().getSelectedItem();
+                deleteStudent(selectedStudent);
             }
         });
 
         //editing a student
         /* TODO: create a new listContextMenu -> defined above in the variables
          */
-        listContextMenu = null;
+        //listContextMenu = new ContextMenu();
+        //DON'T THINK THIS IS NECESSARY- MAYBE ASK ON TEAMS?
 
         /* TODO: create a MenuItem object so that when the user right-clicks a studId
                  the word Edit?? appears
          */
-        MenuItem editStudent = null;
+        MenuItem editStudent = new MenuItem("Edit??");
 
         editStudent.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
                 /* TODO: get the item to be edited and call the editStudent()
                 */
+                Student selectedStudent = studentListView.getSelectionModel().getSelectedItem();
+                editStudent(selectedStudent);
             }
         });
 
         //code provided to ensure that contextMenu appears as part of the above actions
-        listContextMenu.getItems().add(deleteStudent);
-        listContextMenu.getItems().add(editStudent);
+        listContextMenu.getItems().addAll(deleteStudent, editStudent);
 
         //to ensure access to a particular cell in the studentListView
         studentListView.setCellFactory(new Callback<ListView<Student>, ListCell<Student>>() {
@@ -164,6 +168,8 @@ public class Controller {
                         /* TODO: ensure that the studentListView has studId's or not when
                                  the delete a student takes place
                          */
+                        super.updateItem(stu, empty);
+                        //THIS COULD BE WRONG
                     }//end of update()
                 };
                 //code included as part of the delete
@@ -181,13 +187,15 @@ public class Controller {
 
         /* TODO: ensure that the studId's are sorted according to year of study in ascending order
         */
-        SortedList<Student> sortedByYear = null;//new SortedList<Student>(StudentData.getInstance().getStudents(),);
-
+        //SortedList<Student> sortedByYear = null;//new SortedList<Student>(StudentData.getInstance().getStudents(),);
+        studentListView.setItems(StudentData.getInstance().getStudents());
+        //^this is first way of doing it, but not needed anymore bc we are sorting
         /* TODO: step 1 - set items using the sorted list
                  step 2 - ensure that only one studId can be selected at one time
                  step 3 - ensure that the first studId is highlighted when the application commences
          */
-        studentListView.setItems(sortedByYear);
+
+        //studentListView.setItems(sortedByYear);
         studentListView.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
         studentListView.getSelectionModel().selectFirst();
     }
@@ -214,8 +222,8 @@ public class Controller {
     public void addStudentData() {
         /* TODO: get the values from the textfields
          */
-        String studIdS = null;
-        String yearStudyS = null;
+        String studIdS = studId.getText();
+        String yearStudyS = yearStudy.getText();
         /* TODO: validate whether the studIdS and yearStudyS are occupied, BOTH have to be occupied
                  for the add to take place, if one or both are unoccupied print the following message
                  in the validateStudent label -> message to be printed is
@@ -223,9 +231,15 @@ public class Controller {
                  If both are occupied then go ahead with the addStudentData()
          */
         //do the if...here
-
+        if(studIdS.length()==0 && yearStudyS.length()==0){ //is this the best way to validate?
+            validateStudent.setText("Error: cannot add student if studId or year of study not filled in");
+        } else{
+            validateStudent.setText("");
+            studentToAdd= new Student(studIdS, yearStudyS, choice1, choice2, choice3);
+            StudentData.getInstance().addStudentData(studentToAdd);
+            studentListView.getSelectionModel().select(studentToAdd);
+        }
         //do the else...here, first ensure that the validateStudent label is clear of any text
-            studentToAdd = null;
         //use the getInstance() to addStudentData()
         //select the student that has been added so that it is highlighted on the list
     }
@@ -233,21 +247,26 @@ public class Controller {
     public void deleteStudent(Student stu) {
         /* TODO: create an alert object to confirm that a user wants to delete
          */
-        Alert alert = null;
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         /* TODO: set the title with "Delete a student from the list"
          */
+        alert.setTitle("Delete a student from the list");
         //insert the line of code here
         /* TODO: set the header text with "Deleting student " xxx - where xxx is the studId
          */
+        alert.setHeaderText("Deleting student " + stu.getStudId());
         //insert the line of code here
         /* TODO: have a message that asks the user "Are you sure you want to delete the student?"
          */
+        alert.setContentText("are you sure you want to delete");
         //insert the line of code here
         //the result object with the showAndWait() has been completed for you
         Optional<ButtonType> result = alert.showAndWait();
         /* TODO: include a test to verify if the result is present and whether the OK button was
                  pressed, if so go ahead and call the deleteStudent()
          */
+        if(result.isPresent() && result.get()==ButtonType.OK)
+            StudentData.getInstance().deleteStudent(stu);
         //insert the 2 lines of code here
     }
 

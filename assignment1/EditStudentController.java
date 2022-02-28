@@ -60,10 +60,10 @@ public class EditStudentController {
         /* TODO: display the student to be edited details
          */
         //insert 4 lines of code here
-        yearStudyDisplay.setText("/n" + stu.getYearOfStudy());
-        mod1Edit.setText("/n" + stu.getModule1());
-        mod2Edit.setText("/n" + stu.getModule2());
-        mod3Edit.setText("/n" + stu.getModule3()); // these could be wrong!
+        yearStudyDisplay.setText("Year of Study\n" + stu.getYearOfStudy());
+        mod1Edit.setText("Module Option 1\n" + stu.getModule1());
+        mod2Edit.setText("Module Option 2\n" + stu.getModule2());
+        mod3Edit.setText("Module Option 3\n" + stu.getModule3()); // these could be wrong!
         /* TODO: get the new module choices using mod1S, mod2S and mod3S
          */
         mod1S = mod1ChoiceEdit.getValue();
